@@ -22,11 +22,8 @@ ys = np.linspace(0, 0,6)
 zs = np.linspace(-9, 9, s)
 F_POS = np.array([(x,y,z) for x in xs for y in ys for z in zs])
 
-def mag(x):
-    return math.sqrt(sum(i**2 for i in x))
-
 B = c1.getB(F_POS)[:s]
-mags = [ mag(x) for x in B ]
+mags = [ math.sqrt(sum(i**2 for i in x)) for x in B ]
 z_pos = [d for d in zs]
 derivative = np.diff(mags)/np.diff(zs)
 print(mags)
