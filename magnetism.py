@@ -6,7 +6,7 @@ from magpylib.source.current import Circular
 from magpylib import Collection 
 
 TURNS = 15
-s = 90
+s = 91
 LENGTH = 3
 CURRENT = 1
 
@@ -28,12 +28,18 @@ def mag(x):
 B = c1.getB(F_POS)[:s]
 mags = [ mag(x) for x in B ]
 z_pos = [d for d in zs]
+derivative = np.diff(mags)/np.diff(zs)
 print(mags)
 
 
-plt.plot(z_pos, mags)
-plt.title(f"Strength of Magnetic Field - Solenoid, {TURNS} turns, {LENGTH}cm long, {CURRENT} amp, {s} data points")
+plt.plot(z_pos, mags, 'blue', label='B(x)')
+plt.plot(z_pos[1:], derivative, 'red', label="B'(x)")
+plt.title(f"Strength of Magnetic Field - Solenoid, {TURNS} turns, {LENGTH}cm long, {CURRENT} amp, {s-1} data points")
 plt.xlabel('Displacement from center of air core (cm)')
 plt.ylabel(f'Magnetic Field Strength (mT)')
 
+plt.axhline(0, color='grey', ls='dashed')
+plt.axvline(0, color='grey', ls='dashed')
+
+plt.legend()
 plt.show()
